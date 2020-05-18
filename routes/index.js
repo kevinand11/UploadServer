@@ -8,7 +8,7 @@ router.get('/', (req, res, next) => {
 	res.render('index', { title: 'Upload Server for Firebase Development Projects.', message: 'Try uploading a file to the image route using the post method' })
 })
 
-router.post('/image', (req, res) => {
+router.post('/file', (req, res) => {
 	try {
 		let file = req.files.file
 		let link = req.body.path
