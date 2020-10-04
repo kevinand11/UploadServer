@@ -2,3 +2,5 @@ public/
 !public/javascripts
 !public/stylesheets
 !public/images
+storage/
+.idea/
