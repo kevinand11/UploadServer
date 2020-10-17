@@ -11,9 +11,9 @@ router.get('/', (req, res, next) => {
 	}).end()
 })
 
-router.post('/file', async (req, res) => {
-	const RESERVED_PATHS = ['stylesheets','javascripts','images']
+const RESERVED_PATHS = ['stylesheets','javascripts','images']
 
+router.post('/file', async (req, res) => {
 	let { file: { tempFilePath } } = req.files
 	let { path: link } = req.body
 
@@ -46,6 +46,10 @@ router.delete('/file', (req, res) => {
 	let newPath = path.resolve(`public/${link.toLowerCase()}`)
 
 	try{
+		if(RESERVED_PATHS.some(path => link.toLowerCase().startsWith(path))) throw new Error(
+			'Path is reserved. Make sure your path doesn\'t begin with any of these: ' + RESERVED_PATHS.join(' || ')
+		)
+
 		if(fs.existsSync(newPath)) fs.unlinkSync(newPath)
 
 		return res.status(200).json('Success').end()
