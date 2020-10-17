@@ -11,7 +11,7 @@ router.get('/', (req, res, next) => {
 	}).end()
 })
 
-router.post('/file', (req, res) => {
+router.post('/file', async (req, res) => {
 	const RESERVED_PATHS = ['stylesheets','javascripts','images']
 
 	let { file: { tempFilePath } } = req.files
@@ -34,6 +34,22 @@ router.post('/file', (req, res) => {
 	} catch (error) {
 		if(fs.existsSync(oldPath)) fs.unlinkSync(oldPath)
 
+		return res.status(400).json(error.message).end()
+	}
+})
+
+router.delete('/file', (req, res) => {
+	let { path: link } = req.body
+
+	if(!link) return res.status(400).json('Invalid link').end()
+
+	let newPath = path.resolve(`public/${link.toLowerCase()}`)
+
+	try{
+		if(fs.existsSync(newPath)) fs.unlinkSync(newPath)
+
+		return res.status(200).json('Success').end()
+	}catch(error){
 		return res.status(400).json(error.message).end()
 	}
 })
