@@ -4,7 +4,7 @@ let path = require('path')
 
 let router = express.Router()
 
-router.get('/', (req, res, next) => {
+router.get('/', (req, res) => {
 	res.render('index', {
 		title: 'Upload Server for Firebase Development Projects.',
 		message: 'Try uploading a file to the /file route using the post method'

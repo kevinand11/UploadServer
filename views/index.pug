@@ -3,7 +3,7 @@ extends layout
 block content
   h1= title
   p= message
-  form(id="upload", enctype="multipart/form-data", method="post", action="/submit")
+  form(id="upload", enctype="multipart/form-data", method="post", action="/file")
     input(name="path", id='path', placeholder="Path")
-    input(name="file", type="file",id="file")
+    input(name="file", type="file", id="file")
     button(type="submit") Submit
